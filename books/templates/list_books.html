@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Libros</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+        }
+
+        .btn-nuevo {
+            background: #1a8a6e;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-nuevo:hover { background: #157a5f; }
+
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-collapse: collapse;
+        }
+
+        thead th {
+            background: #1a5e4a;
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tbody td {
+            padding: 13px 16px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: #f0faf7; }
+
+        /* Badge para cada autor */
+        .autores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .badge-autor {
+            background: #d5f0e8;
+            color: #1a5e4a;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #aaa;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .acciones { display: flex; gap: 8px; }
+
+        .btn-editar, .btn-borrar {
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-editar { background: #f39c12; color: white; }
+        .btn-editar:hover { background: #d68910; }
+        .btn-borrar { background: #e74c3c; color: white; }
+        .btn-borrar:hover { background: #c0392b; }
+
+        .btn-regresar {
+            background: #ecf0f1;
+            color: #555;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .btn-regresar:hover { background: #dde1e4; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <h1>📖 Libros</h1>
+        <div style="display:flex; gap:10px;">
+        <a href="{% url 'home' %}" class="btn-regresar">← Regresar</a>
+        <a href="{% url 'add_book' %}" class="btn-nuevo">+ Nuevo Libro</a>
+        </div>
+    </div>
+
+    {% if books %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Autores</th>
+                <th>Editorial</th>
+                <th>Fecha de publicación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><strong>{{ book.title }}</strong></td>
+                <td>
+                    <div class="autores">
+                        {% for author in book.authors.all %}
+                            <span class="badge-autor">{{ author }}</span>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td>{{ book.publisher }}</td>
+                <td>{{ book.publication_date|date:"d/m/Y" }}</td>
+                <td>
+                    <div class="acciones">
+                        <a href="{% url 'edit_book' book.id %}" class="btn-editar">✏️ Editar</a>
+                        <a href="{% url 'delete_book' book.id %}" class="btn-borrar">🗑️ Borrar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div class="empty">
+        <p>No hay libros registrados todavía.</p>
+    </div>
+    {% endif %}
+
+</div>
+</body>
+</html>
