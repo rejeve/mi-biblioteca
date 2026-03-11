@@ -17,11 +17,8 @@ class AuthorForm(ModelForm):
 class BookForm(ModelForm):
     publication_date = forms.DateField(
         label="Fecha de publicacion",
-        input_formats=['%d/%m/%Y', '%Y-%m-%d'],
-        widget=forms.DateInput(
-            format='%d/%m/%Y',
-            attrs={'placeholder': 'DD/MM/AAAA'},
-        )
+        input_formats=['%Y-%m-%d'],
+        widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
     )
     
     class Meta:
