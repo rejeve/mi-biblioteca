@@ -20,6 +20,11 @@ class BookForm(ModelForm):
         input_formats=['%Y-%m-%d'],
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
     )
+
+    authors = forms.ModelMultipleChoiceField(
+        queryset=Author.objects.all(),
+        label="Autores",
+        widget=forms.SelectMultiple(attrs={'class': 'tomselect'}))
     
     class Meta:
         model = Book

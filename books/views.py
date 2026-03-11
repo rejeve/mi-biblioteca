@@ -110,7 +110,7 @@ def edit_book(request, id):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect('list')
+            return redirect('list_books')
     else:
         form = BookForm(instance=book)
     return render(request, 'edit_book.html', {'book':book, 'form':form})
@@ -119,6 +119,6 @@ def delete_book(request, id):
     book = Book.objects.get(id=id)
     if request.method == 'POST':
         book.delete()
-        return redirect('list')
+        return redirect('list_books')
 
     return render(request, 'delete_book.html', {'book':book})

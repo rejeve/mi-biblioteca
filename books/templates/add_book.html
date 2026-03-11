@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuevo Libro</title>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -139,5 +141,13 @@
     </form>
 
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    new TomSelect(".tomselect", {
+        plugins: ['remove_button']
+    });
+});
+</script>
 </body>
 </html>
