@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from .forms import PublisherForm, AuthorForm, BookForm
 from .models import Publisher, Author, Book
 
@@ -12,6 +13,7 @@ def add_publisher(request):
         form = PublisherForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Editorial creada correctamente")
             return redirect('list_publisher')
     else:
         form = PublisherForm()
@@ -31,6 +33,7 @@ def edit_publisher(request, id):
         form = PublisherForm(request.POST, instance=publisher)
         if form.is_valid():
             form.save()
+            messages.success(request, "Editorial actualizada correctamente")
             return redirect('list_publisher')
     else:
         form = PublisherForm(instance=publisher)
@@ -42,6 +45,7 @@ def delete_publisher(request, id):
 
     if request.method == 'POST':
         publisher.delete()
+        messages.warning(request, "La editorial se ha eliminado")
         return redirect('list_publisher')
     
     return render(request, 'delete_publisher.html', {'publisher':publisher})
@@ -53,6 +57,7 @@ def add_author(request):
         form = AuthorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Autor creado correctamente")
             return redirect('list_authors')
     else:
         form = AuthorForm()
@@ -72,6 +77,7 @@ def edit_author(request, id):
         form = AuthorForm(request.POST, request.FILES, instance=author)
         if form.is_valid():
             form.save()
+            messages.success(request, "Autor actualizado correctamente")
             return redirect('list_authors')
     else:
         form = AuthorForm(instance=author)
@@ -83,6 +89,7 @@ def delete_author(request, id):
 
     if request.method == 'POST':
         author.delete()
+        messages.warning(request, "El autor se ha eliminado")
         return redirect('list_authors')
     
     return render(request, 'delete_author.html', {'author':author})
@@ -99,6 +106,7 @@ def add_book(request):
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Libro creado correctamente")
             return redirect('list_books')
     else:
         form = BookForm()
@@ -110,6 +118,7 @@ def edit_book(request, id):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
+            messages.success(request, "Libro actualizado correctamente")
             return redirect('list_books')
     else:
         form = BookForm(instance=book)
@@ -119,6 +128,7 @@ def delete_book(request, id):
     book = Book.objects.get(id=id)
     if request.method == 'POST':
         book.delete()
+        messages.warning(request, "El libro se ha eliminado")
         return redirect('list_books')
 
     return render(request, 'delete_book.html', {'book':book})
