@@ -94,6 +94,11 @@ def delete_author(request, id):
     
     return render(request, 'delete_author.html', {'author':author})
 
+
+def author_detail(request, id):
+    author = Author.objects.get(id=id)
+    return render(request, 'author_detail.html', {'author':author})
+
 # ----------------- Vistas Book -------------------------
 def list_book(request):
     if request.method == 'GET':
