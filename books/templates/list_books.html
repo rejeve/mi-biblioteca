@@ -89,6 +89,11 @@
             white-space: nowrap;
         }
 
+        .badge-autor a {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .empty {
             text-align: center;
             padding: 40px;
@@ -170,7 +175,7 @@
                 <td>
                     <div class="autores">
                         {% for author in book.authors.all %}
-                            <span class="badge-autor">{{ author }}</span>
+                            <span class="badge-autor"><a href="{% url 'author_detail' author.id %}">{{ author }}</a></span>
                         {% endfor %}
                     </div>
                 </td>
