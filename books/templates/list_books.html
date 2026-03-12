@@ -175,7 +175,7 @@
                 <td>
                     <div class="autores">
                         {% for author in book.authors.all %}
-                            <span class="badge-autor"><a href="{% url 'author_detail' author.id %}">{{ author }}</a></span>
+                            <span class="badge-autor"><a href="{% url 'author_detail' author.id%}?next={% url 'list_books' %}">{{ author }}</a></span>
                         {% endfor %}
                     </div>
                 </td>

@@ -182,7 +182,7 @@
                 <td>{{ author.email }}</td>
                 <td>
                     <div class="acciones">
-                        <a href="{% url 'author_detail' author.id %}" class="btn-editar">🔍 Ver detalles</a>
+                        <a href="{% url 'author_detail' author.id %}?next={% url 'list_authors' %}" class="btn-editar">🔍 Ver detalles</a>
                         <a href="{% url 'edit_author' author.id %}" class="btn-editar">✏️ Editar</a>
                         <a href="{% url 'delete_author' author.id %}" class="btn-borrar">🗑️ Borrar</a>
                     </div>
