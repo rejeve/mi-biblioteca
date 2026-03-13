@@ -10,9 +10,6 @@ class Publisher (models.Model):
 
     def __str__(self):
         return self.name
-    
-    class Meta:
-        ordering = ["name"]
 
 
 class Author(models.Model):
@@ -24,9 +21,6 @@ class Author(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
-    class Meta:
-        ordering = ["first_name"]
-    
     
 class Book(models.Model):
     title = models.CharField(max_length=100, verbose_name="Titulo")
@@ -36,6 +30,3 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-    
-    class Meta:
-        ordering = ["title"]
