@@ -113,7 +113,7 @@ h1{
 <h4>📚 Libros</h4>
 
 <ul>
-{% for book in author.book_set.all %}
+{% for book in books %}
 <li>{{ book.title }}</li>
 {% empty %}
 <li>Este autor todavía no tiene libros registrados.</li>

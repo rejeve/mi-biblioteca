@@ -97,7 +97,8 @@ def delete_author(request, id):
 
 def author_detail(request, id):
     author = Author.objects.get(id=id)
-    return render(request, 'author_detail.html', {'author':author})
+    books = author.book_set.all()
+    return render(request, 'author_detail.html', {'author':author,'books':books})
 
 # ----------------- Vistas Book -------------------------
 def list_book(request):

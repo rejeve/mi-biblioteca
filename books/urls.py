@@ -3,16 +3,18 @@ from django.urls import path
 
 urlpatterns = [
     path('publisher/', views.list_publisher, name='list_publisher'),
-    path('add_publisher/', views.add_publisher, name='add_publisher'),
-    path('edit_publisher/<int:id>/', views.edit_publisher, name='edit_publisher'),
-    path('delete_publisher/<int:id>/', views.delete_publisher, name='delete_publisher'),
+    path('publisher/add/', views.add_publisher, name='add_publisher'),
+    path('publisher/<int:id>/edit/', views.edit_publisher, name='edit_publisher'),
+    path('publisher/<int:id>/delete/', views.delete_publisher, name='delete_publisher'),
+
     path('author/', views.list_authors, name='list_authors'),
-    path('add_author/', views.add_author, name='add_author'),
-    path('edit_author/<int:id>/', views.edit_author, name='edit_author'),
-    path('author_detail/<int:id>/', views.author_detail, name='author_detail'),
-    path('delete_author/<int:id>/', views.delete_author, name='delete_author'),
+    path('author/add', views.add_author, name='add_author'),
+    path('author/<int:id>/edit/', views.edit_author, name='edit_author'),
+    path('author/<int:id>/detail/', views.author_detail, name='author_detail'),
+    path('author/<int:id>/delete/', views.delete_author, name='delete_author'),
+
     path('list/', views.list_book, name='list_books'),
-    path('add_book/', views.add_book, name='add_book'),
-    path('edit_book/<int:id>/', views.edit_book, name='edit_book'),
-    path('delete_book/<int:id>/', views.delete_book, name='delete_book'),
+    path('add/', views.add_book, name='add_book'),
+    path('<int:id>/edit/', views.edit_book, name='edit_book'),
+    path('<int:id>/delete/', views.delete_book, name='delete_book'),
 ]
