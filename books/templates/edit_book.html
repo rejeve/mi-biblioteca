@@ -125,6 +125,9 @@
     </style>
 </head>
 <body>
+
+    <a href="{% url 'edit_book_clase' book.id %}" >Ir a la vista por clase</a>
+
 <div class="container">
 
     <h1>✏️ Editar Libro</h1>
@@ -132,7 +135,6 @@
     <form action="{% url 'edit_book' book.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <p class="hint">* Para seleccionar varios autores mantén presionado Ctrl (Windows) o Cmd (Mac).</p>
         <div class="btn-group">
             <button type="submit" class="btn-guardar">💾 Guardar cambios</button>
             <a href="{% url 'list_books' %}" class="btn-cancelar">✕ Cancelar</a>

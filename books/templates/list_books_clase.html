@@ -131,6 +131,7 @@
         }
         
         .btn-regresar:hover { background: #dde1e4; }
+
     </style>
 </head>
 <body>
@@ -148,10 +149,11 @@
 <div class="container">
 
     <div class="header">
-        <h1>📖 Libros</h1>
+        <h1>📖 Libros (CVB)</h1>
+        <a href="{% url 'list_books' %}">Ir a la vista por funcion</a>
         <div style="display:flex; gap:10px;">
         <a href="{% url 'home' %}" class="btn-regresar">← Regresar</a>
-        <a href="{% url 'add_book' %}" class="btn-nuevo">+ Nuevo Libro</a>
+        <a href="{% url 'add_book_clase' %}" class="btn-nuevo">+ Nuevo Libro</a>
         </div>
     </div>
 
@@ -175,7 +177,7 @@
                 <td>
                     <div class="autores">
                         {% for author in book.authors.all %}
-                            <span class="badge-autor"><a href="{% url 'author_detail' author.id%}?next={% url 'list_books' %}">{{ author }}</a></span>
+                            <span class="badge-autor"><a href="{% url 'author_detail' author.id%}">{{ author }}</a></span>
                         {% endfor %}
                     </div>
                 </td>
@@ -183,8 +185,8 @@
                 <td>{{ book.publication_date|date:"d/m/Y" }}</td>
                 <td>
                     <div class="acciones">
-                        <a href="{% url 'edit_book' book.id %}" class="btn-editar">✏️ Editar</a>
-                        <a href="{% url 'delete_book' book.id %}" class="btn-borrar">🗑️ Borrar</a>
+                        <a href="{% url 'edit_book_clase' book.id %}" class="btn-editar">✏️ Editar</a>
+                        <a href="{% url 'delete_book_clase' book.id %}" class="btn-borrar">🗑️ Borrar</a>
                     </div>
                 </td>
             </tr>

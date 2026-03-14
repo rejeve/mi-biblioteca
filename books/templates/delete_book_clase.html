@@ -98,8 +98,7 @@
 </head>
 <body>
 
-    <a href="{% url 'delete_book_clase' book.id %}">Ir a la vista por clase</a>
-
+    <a href="{% url 'delete_book' book.id %}">Ir a la vista por funcion</a>
 <div class="container">
 
     <div class="icono">🗑️</div>
@@ -122,11 +121,11 @@
         <div><span>Publicación:</span> {{ book.publication_date|date:"d/m/Y" }}</div>
     </div>
 
-    <form action="{% url 'delete_book' book.id %}" method="post">
+    <form action="{% url 'delete_book_clase' book.id %}" method="post">
         {% csrf_token %}
         <div class="btn-group">
             <button type="submit" class="btn-confirmar">🗑️ Sí, eliminar</button>
-            <a href="{% url 'list_books' %}" class="btn-cancelar">✕ Cancelar</a>
+            <a href="{% url 'list_books_clase' %}" class="btn-cancelar">✕ Cancelar</a>
         </div>
     </form>
 

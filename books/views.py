@@ -1,13 +1,15 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import PublisherForm, AuthorForm, BookForm
 from .models import Publisher, Author, Book
 
 def home(request):
     return render(request, 'home2.html')
 
-# ---------- Vistas Publisher ------------------
+# ------------ VISTAS PUBLISHER --------------------
 def add_publisher(request):
     if request.method == 'POST':
         form = PublisherForm(request.POST)
@@ -50,7 +52,8 @@ def delete_publisher(request, id):
     
     return render(request, 'delete_publisher.html', {'publisher':publisher})
 
-# ----------------- Vistas Author -------------------------
+
+# ----------------- VISTAS AUTOR -----------------------
 
 def add_author(request):
     if request.method == 'POST':
@@ -100,13 +103,22 @@ def author_detail(request, id):
     books = author.book_set.all()
     return render(request, 'author_detail.html', {'author':author,'books':books})
 
-# ----------------- Vistas Book -------------------------
+
+# -------------------------------- VISTAS BOOK -----------------------------------
+# ------------- LISTA DE LIBROS ---------------------
 def list_book(request):
     if request.method == 'GET':
         books = Book.objects.all()
-        return render(request, 'list_books.html', {'books':books})
+        return render(request, 'list_books_funcion.html', {'books':books})
     
 
+class BookListView(ListView):
+    model = Book
+    template_name = 'list_books_clase.html'
+    context_object_name = 'books'
+
+
+# ------------- AGREGAR LIBRO -----------------------
 def add_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -117,7 +129,15 @@ def add_book(request):
     else:
         form = BookForm()
     return render(request, 'add_book.html', {'form':form})
-    
+
+
+class BookCreateView(CreateView):
+    model = Book
+    fields = '__all__'
+    template_name = 'add_book_clase.html'
+    success_url = reverse_lazy('list_books_clase')
+
+# ------------- ACTUALIZAR/EDITAR LIBRO -------------   
 def edit_book(request, id):
     book = Book.objects.get(id=id)
     if request.method == 'POST':
@@ -130,6 +150,15 @@ def edit_book(request, id):
         form = BookForm(instance=book)
     return render(request, 'edit_book.html', {'book':book, 'form':form})
 
+
+class BookUpdateView(UpdateView):
+    model = Book
+    fields = '__all__'
+    template_name = "edit_book_clase.html"
+    success_url = reverse_lazy('list_books_clase')
+
+
+# --------------- ELIMINAR LIBRO --------------------
 def delete_book(request, id):
     book = Book.objects.get(id=id)
     if request.method == 'POST':
@@ -138,3 +167,9 @@ def delete_book(request, id):
         return redirect('list_books')
 
     return render(request, 'delete_book.html', {'book':book})
+
+
+class BookDeleteView(DeleteView):
+    model = Book
+    template_name = "delete_book_clase.html"
+    success_url = reverse_lazy('list_books_clase')
