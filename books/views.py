@@ -108,7 +108,7 @@ def author_detail(request, id):
 # ------------- LISTA DE LIBROS ---------------------
 def list_book(request):
     if request.method == 'GET':
-        books = Book.objects.all()
+        books = Book.objects.select_related('publisher').prefetch_related('authors')
         return render(request, 'list_books_funcion.html', {'books':books})
     
 
@@ -116,7 +116,10 @@ class BookListView(ListView):
     model = Book
     template_name = 'list_books_clase.html'
     context_object_name = 'books'
-
+    
+    def get_queryset(self):
+        return Book.objects.select_related('publisher').prefetch_related('authors')
+    
 
 # ------------- AGREGAR LIBRO -----------------------
 def add_book(request):
