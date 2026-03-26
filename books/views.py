@@ -26,8 +26,8 @@ def list_publisher(request):
     if request.method == 'GET':
         publishers = Publisher.objects.all()
         return render(request, 'list_publisher.html', {'publishers':publishers})
-    
-    
+
+
 def edit_publisher(request, id):
     publisher = Publisher.objects.get(id=id)
 
@@ -53,8 +53,7 @@ def delete_publisher(request, id):
     return render(request, 'delete_publisher.html', {'publisher':publisher})
 
 
-# ----------------- VISTAS AUTOR -----------------------
-
+#
 def add_author(request):
     if request.method == 'POST':
         form = AuthorForm(request.POST, request.FILES)

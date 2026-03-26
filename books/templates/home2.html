@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Inicio</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <div class="header">
+        <h1>📚 Mi Biblioteca</h1>
+    </div>
+
+    <div class="cards">
+        <a href="{% url 'list_books' %}" class="card card-books">
+            <div class="icono">📖</div>
+            <h2>Libros</h2>
+            <p>Gestiona el catálogo de libros</p>
+        </a>
+        
+        <a href="{% url 'list_publisher' %}" class="card card-publishers">
+            <div class="icono">🏢</div>
+            <h2>Editoriales</h2>
+            <p>Gestiona las editoriales registradas</p>
+        </a>
+
+        <a href="{% url 'list_authors' %}" class="card card-authors">
+            <div class="icono">✍️</div>
+            <h2>Autores</h2>
+            <p>Gestiona los autores registrados</p>
+        </a>
+    </div>
+
+</div>
+{% endblock %}
+{% block extra_styles %}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -77,44 +103,4 @@
 
         .card-books { border-top: 4px solid #1a8a6e; }
         .card-books h2 { color: #1a8a6e; }
-    </style>
-</head>
-<body>
-        {% if messages %}
-    {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endfor %}
-    {% endif %}
-    
-<div class="container">
-
-    <div class="header">
-        <h1>📚 Mi Biblioteca</h1>
-    </div>
-
-    <div class="cards">
-        <a href="{% url 'list_books' %}" class="card card-books">
-            <div class="icono">📖</div>
-            <h2>Libros</h2>
-            <p>Gestiona el catálogo de libros</p>
-        </a>
-        
-        <a href="{% url 'list_publisher' %}" class="card card-publishers">
-            <div class="icono">🏢</div>
-            <h2>Editoriales</h2>
-            <p>Gestiona las editoriales registradas</p>
-        </a>
-
-        <a href="{% url 'list_authors' %}" class="card card-authors">
-            <div class="icono">✍️</div>
-            <h2>Autores</h2>
-            <p>Gestiona los autores registrados</p>
-        </a>
-    </div>
-
-</div>
-</body>
-</html>
+{% endblock %}

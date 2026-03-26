@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Detalles del Autor</title>
+{% extends "base.html" %}
+{% block title %}Detalles del autor{% endblock %}
 
-<style>
+{% block content %}
+<div class="container">
+
+<a href="{% url 'list_authors' %}" class="btn-regresar mb-3">← Volver a Autores</a>
+
+<div class="card">
+
+<div class="autor-header">
+
+{% if author.headshot %}
+<img src="{{ author.headshot.url }}" class="headshot">
+{% else %}
+<div class="sin-foto">👤</div>
+{% endif %}
+
+<div>
+<h1>{{ author.first_name }} {{ author.last_name }}</h1>
+<p class="email">{{ author.email }}</p>
+</div>
+
+</div>
+
+
+<div class="libros">
+
+<h4>📚 Libros</h4>
+
+<ul>
+{% for book in books %}
+<li>{{ book.title }}</li>
+{% empty %}
+<li>Este autor todavía no tiene libros registrados.</li>
+{% endfor %}
+</ul>
+
+</div>
+
+</div>
+
+</div>
+{% endblock %}
+
+{% block extra_styles %}
 
 body{
     font-family:'Segoe UI',sans-serif;
@@ -81,50 +120,4 @@ h1{
     background:#dde1e4;
 }
 
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<a href="{% url 'list_authors' %}" class="btn-regresar mb-3">← Volver a Autores</a>
-
-<div class="card">
-
-<div class="autor-header">
-
-{% if author.headshot %}
-<img src="{{ author.headshot.url }}" class="headshot">
-{% else %}
-<div class="sin-foto">👤</div>
-{% endif %}
-
-<div>
-<h1>{{ author.first_name }} {{ author.last_name }}</h1>
-<p class="email">{{ author.email }}</p>
-</div>
-
-</div>
-
-
-<div class="libros">
-
-<h4>📚 Libros</h4>
-
-<ul>
-{% for book in books %}
-<li>{{ book.title }}</li>
-{% empty %}
-<li>Este autor todavía no tiene libros registrados.</li>
-{% endfor %}
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-</body>
-</html>
+{% endblock %}

@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <meta charset="UTF-8">
-    <title>Libros</title>
-    <style>
+{% extends "base.html" %}
+{% block title %}Libros | FVB{% endblock %}
+
+{% block content %}
+    
+<div class="container">
+
+    <div class="header">
+        <h1>📖 Libros (FVB)</h1>
+        <a href="{% url 'list_books_clase' %}">Ir a la vista por clase</a>
+        <div style="display:flex; gap:10px;">
+        <a href="{% url 'home' %}" class="btn-regresar">← Regresar</a>
+        <a href="{% url 'add_book' %}" class="btn-nuevo">+ Nuevo Libro</a>
+        </div>
+    </div>
+
+    {% if books %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Autores</th>
+                <th>Editorial</th>
+                <th>Fecha de publicación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td><strong>{{ book.title }}</strong></td>
+                <td>
+                    <div class="autores">
+                        {% for author in book.authors.all %}
+                            <span class="badge-autor"><a href="{% url 'author_detail' author.id%}">{{ author }}</a></span>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td>{{ book.publisher }}</td>
+                <td>{{ book.publication_date|date:"d/m/Y" }}</td>
+                <td>
+                    <div class="acciones">
+                        <a href="{% url 'edit_book' book.id %}" class="btn-editar">✏️ Editar</a>
+                        <a href="{% url 'delete_book' book.id %}" class="btn-borrar">🗑️ Borrar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div class="empty">
+        <p>No hay libros registrados todavía.</p>
+    </div>
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
+{% block extra_styles %}
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
@@ -131,77 +189,4 @@
         }
         
         .btn-regresar:hover { background: #dde1e4; }
-    </style>
-</head>
-<body>
-
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endfor %}
-    {% endif %}
-
-    
-<div class="container">
-
-    <div class="header">
-        <h1>📖 Libros (FVB)</h1>
-        <a href="{% url 'list_books_clase' %}">Ir a la vista por clase</a>
-        <div style="display:flex; gap:10px;">
-        <a href="{% url 'home' %}" class="btn-regresar">← Regresar</a>
-        <a href="{% url 'add_book' %}" class="btn-nuevo">+ Nuevo Libro</a>
-        </div>
-    </div>
-
-    {% if books %}
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Título</th>
-                <th>Autores</th>
-                <th>Editorial</th>
-                <th>Fecha de publicación</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in books %}
-            <tr>
-                <td>{{ book.id }}</td>
-                <td><strong>{{ book.title }}</strong></td>
-                <td>
-                    <div class="autores">
-                        {% for author in book.authors.all %}
-                            <span class="badge-autor"><a href="{% url 'author_detail' author.id%}">{{ author }}</a></span>
-                        {% endfor %}
-                    </div>
-                </td>
-                <td>{{ book.publisher }}</td>
-                <td>{{ book.publication_date|date:"d/m/Y" }}</td>
-                <td>
-                    <div class="acciones">
-                        <a href="{% url 'edit_book' book.id %}" class="btn-editar">✏️ Editar</a>
-                        <a href="{% url 'delete_book' book.id %}" class="btn-borrar">🗑️ Borrar</a>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    {% else %}
-    <div class="empty">
-        <p>No hay libros registrados todavía.</p>
-    </div>
-    {% endif %}
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+{% endblock %}
